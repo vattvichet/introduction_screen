@@ -461,7 +461,8 @@ class IntroductionScreenState extends State<IntroductionScreen> {
         child: widget.overrideSkip ??
             IntroButton(
               child: widget.skip!,
-              style: widget.baseBtnStyle?.merge(widget.skipStyle) ?? widget.skipStyle,
+              style: widget.baseBtnStyle?.merge(widget.skipStyle) ??
+                  widget.skipStyle,
               semanticLabel: widget.skipSemantic,
               onPressed: _onSkip,
             ),
@@ -470,7 +471,8 @@ class IntroductionScreenState extends State<IntroductionScreen> {
       leftBtn = widget.overrideBack ??
           IntroButton(
             child: widget.back!,
-            style: widget.baseBtnStyle?.merge(widget.backStyle) ?? widget.backStyle,
+            style: widget.baseBtnStyle?.merge(widget.backStyle) ??
+                widget.backStyle,
             semanticLabel: widget.backSemantic,
             onPressed: !_isScrolling ? previous : null,
           );
@@ -481,7 +483,8 @@ class IntroductionScreenState extends State<IntroductionScreen> {
       rightBtn = widget.overrideDone ??
           IntroButton(
             child: widget.done!,
-            style: widget.baseBtnStyle?.merge(widget.doneStyle) ?? widget.doneStyle,
+            style: widget.baseBtnStyle?.merge(widget.doneStyle) ??
+                widget.doneStyle,
             semanticLabel: widget.doneSemantic,
             onPressed: !_isScrolling ? widget.onDone : null,
           );
@@ -489,14 +492,15 @@ class IntroductionScreenState extends State<IntroductionScreen> {
       rightBtn = widget.overrideNext ??
           IntroButton(
             child: widget.next!,
-            style: widget.baseBtnStyle?.merge(widget.nextStyle) ?? widget.nextStyle,
+            style: widget.baseBtnStyle?.merge(widget.nextStyle) ??
+                widget.nextStyle,
             semanticLabel: widget.nextSemantic,
             onPressed: !_isScrolling ? next : null,
           );
     }
 
     return Scaffold(
-      backgroundColor: widget.globalBackgroundColor,
+      backgroundColor: Colors.green[50],
       resizeToAvoidBottomInset: widget.resizeToAvoidBottomInset,
       body: Stack(
         children: [
@@ -522,7 +526,9 @@ class IntroductionScreenState extends State<IntroductionScreen> {
                         ?.mapIndexed(
                           (index, page) => IntroPage(
                             page: page,
-                            scrollController: (CustomList(widget.scrollControllers)?.elementAtOrNull(index)),
+                            scrollController:
+                                (CustomList(widget.scrollControllers)
+                                    ?.elementAtOrNull(index)),
                             isTopSafeArea: widget.isTopSafeArea,
                             isBottomSafeArea: widget.isBottomSafeArea,
                           ),
@@ -561,14 +567,18 @@ class IntroductionScreenState extends State<IntroductionScreen> {
                         child: Center(
                           child: widget.isProgress
                               ? Semantics(
-                                  label: "Page ${_currentPage.round() + 1} of ${getPagesLength()}",
+                                  label:
+                                      "Page ${_currentPage.round() + 1} of ${getPagesLength()}",
                                   excludeSemantics: true,
                                   child: DotsIndicator(
                                     reversed: widget.rtl,
                                     dotsCount: getPagesLength(),
                                     position: _currentPage,
                                     decorator: widget.dotsDecorator,
-                                    onTap: widget.isProgressTap && !widget.freeze ? (pos) => animateScroll(pos.toInt()) : null,
+                                    onTap: widget.isProgressTap &&
+                                            !widget.freeze
+                                        ? (pos) => animateScroll(pos.toInt())
+                                        : null,
                                   ),
                                 )
                               : const SizedBox(),
